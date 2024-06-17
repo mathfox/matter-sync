@@ -1,0 +1,21 @@
+{
+	"importOrder": ["^@rbxts/(.*)$", "^[./]"],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true,
+	"importOrderCaseInsensitive": true,
+	"plugins": ["@trivago/prettier-plugin-sort-imports"],
+	"printWidth": 120,
+	"singleQuote": false,
+	"tabWidth": 4,
+	"endOfLine": "auto",
+	"useTabs": true,
+	"overrides": [
+		{
+			"files": ["**/*.jsonc"],
+			"options": {
+				"parser": "json"
+			}
+		}
+	],
+	"importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"]
+}
