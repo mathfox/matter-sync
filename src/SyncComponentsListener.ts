@@ -1,4 +1,4 @@
-import { Modding } from "@flamework/core";
+import { Modding, Reflect } from "@flamework/core";
 import { AnyComponent } from "@rbxts/matter";
 import { ComponentCtor } from "@rbxts/matter/lib/component";
 import { SyncComponent } from "./SyncComponent";

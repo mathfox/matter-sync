@@ -1,4 +1,5 @@
 import { Modding, Reflect } from "@flamework/core";
+import { ComponentCtor } from "@rbxts/matter/lib/component";
 
 export const SyncComponentKey = "$:matter-sync@SyncComponent";
 
@@ -8,10 +9,7 @@ export const SyncComponentKey = "$:matter-sync@SyncComponent";
 export const SyncComponent = Modding.createDecorator("Property", (descriptor) => {
 	assert(descriptor.isStatic, "Only static components can be synced!");
 
-	Reflect.defineMetadata(
-		descriptor.object,
-		SyncComponentKey,
-		`${SyncComponentKey}.${descriptor.property}`,
-		descriptor.property,
-	);
+	const componentCtor = descriptor.object[descriptor.property as never] as ComponentCtor;
+
+	Reflect.defineMetadata(descriptor.object, `${SyncComponentKey}.${descriptor.property}`, componentCtor);
 });
