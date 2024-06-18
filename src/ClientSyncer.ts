@@ -3,11 +3,10 @@ import { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
 import { values } from "@rbxts/object-utils";
 import { entries } from "@rbxts/sift/out/Dictionary";
 import { SyncPayload } from "./Types";
-import { SyncComponentsListener } from "./SyncComponentsListener";
+import { componentNameCtorMap } from "./componentNameCtorMap";
 
 export class ClientSyncer<T = undefined> {
 	private entityIdMap = new Map<string, AnyEntity>();
-	private componentsListener = new SyncComponentsListener();
 
 	constructor(private world: World) {}
 
@@ -35,7 +34,7 @@ export class ClientSyncer<T = undefined> {
 			const removeNames = new Array<string>();
 
 			for (const [componentName, componentData] of entries(components)) {
-				const component = this.componentsListener.getComponentCtor(componentName);
+				const component = componentNameCtorMap.get(componentName);
 				if (!component) continue;
 
 				const data = componentData.data;
@@ -64,9 +63,5 @@ export class ClientSyncer<T = undefined> {
 				}
 			}
 		}
-	}
-
-	destroy() {
-		this.componentsListener.destroy();
 	}
 }
