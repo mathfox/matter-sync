@@ -1,7 +1,7 @@
 import { Modding } from "@flamework/core";
 import { AnyComponent } from "@rbxts/matter";
 import { ComponentCtor } from "@rbxts/matter/lib/component";
-import { type SyncComponent } from "./SyncComponent";
+import { SyncComponent } from "./SyncComponent";
 
 export class SyncComponentsListener {
 	componentNameCtorMap = new Map<string, (...args: any[]) => AnyComponent>();
