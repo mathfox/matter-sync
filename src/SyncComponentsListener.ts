@@ -13,7 +13,7 @@ export class SyncComponentsListener {
 		}
 
 		this.connection = Modding.onListenerAdded<typeof SyncComponent>((object) => {
-			const decorator = Modding.getDecorator(object);
+			const decorator = Modding.getDecorator<typeof SyncComponent>(object);
 			if (decorator) {
 				this.componentNameCtorMap.set(tostring(object), object as unknown as ComponentCtor);
 			}
