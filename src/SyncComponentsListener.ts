@@ -1,26 +1,23 @@
 import { Modding } from "@flamework/core";
 import { AnyComponent } from "@rbxts/matter";
 import { ComponentCtor } from "@rbxts/matter/lib/component";
-import { SyncComponentKey } from "./SyncComponent";
+import { SyncComponent } from "./SyncComponent";
 
 export class SyncComponentsListener {
 	componentNameCtorMap = new Map<string, (...args: any[]) => AnyComponent>();
 	private connection: RBXScriptConnection;
 
 	constructor() {
-		for (const { object } of Modding.getDecorators(SyncComponentKey)) {
+		for (const { object } of Modding.getDecorators<typeof SyncComponent>()) {
 			this.componentNameCtorMap.set(tostring(object), object as unknown as ComponentCtor);
 		}
 
-		this.connection = Modding.onListenerAdded((object) => {
-			const decorator = Modding.getDecorator(object, SyncComponentKey);
+		this.connection = Modding.onListenerAdded<typeof SyncComponent>((object) => {
+			const decorator = Modding.getDecorator(object);
 			if (decorator) {
 				this.componentNameCtorMap.set(tostring(object), object as unknown as ComponentCtor);
 			}
-		}, SyncComponentKey);
-
-		for (const [] of pairs(Modding)) {
-		}
+		});
 	}
 
 	getComponentCtor(componentName: string) {
