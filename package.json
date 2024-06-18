@@ -1,7 +1,7 @@
 {
 	"name": "@rbxts/matter-sync",
 	"version": "0.0.1",
-	"description": "",
+	"description": "Server-client sync library for Matter ECS.",
 	"main": "out/init.lua",
 	"scripts": {
 		"build": "rbxtsc",
@@ -36,14 +36,11 @@
 	},
 	"devDependencies": {
 		"@flamework/core": "^1.2.3",
-		"@rbxts/atomic-binding": "0.2.4",
 		"@rbxts/compiler-types": "^2.3.0-types.1",
 		"@rbxts/matter": "^0.8.1",
 		"@rbxts/object-utils": "^1.0.4",
 		"@rbxts/services": "^1.5.4",
-		"@rbxts/sift": "^0.0.9",
 		"@rbxts/types": "^1.0.778",
-		"@rbxts/variant": "^1.0.2",
 		"@typescript-eslint/eslint-plugin": "7.11.0",
 		"@typescript-eslint/parser": "7.11.0",
 		"eslint": "^8.57.0",
