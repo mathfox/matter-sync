@@ -9,7 +9,7 @@
         "jsxFragmentFactory": "React.Fragment",
         "module": "CommonJS",
         "moduleResolution": "Node",
-        "noLib": false,
+        "noLib": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
         "moduleDetection": "force",
