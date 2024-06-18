@@ -1,3 +1,3 @@
 import { Modding } from "@flamework/core";
 
-export const SyncComponent = Modding
+export const SyncComponent = Modding.createMetaDecorator("Property")

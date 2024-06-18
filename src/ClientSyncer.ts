@@ -1,33 +1,57 @@
-import { AnyEntity } from "@rbxts/matter";
+import { Modding } from "@flamework/core";
+import { AnyEntity, GenericOfComponent, World } from "@rbxts/matter";
+import { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
+import Object, { values } from "@rbxts/object-utils";
+import { entries } from "@rbxts/sift/out/Dictionary";
+import { SyncComponent } from "SyncComponent";
 import { SyncPayload } from "sync";
 
 export class ClientSyncer {
 	private entityIdMap = new Map<string, AnyEntity>();
+	private componentNameCtorMap = new Map<string, (...args: any[]) => AnyComponent>();
+	private connection: RBXScriptConnection;
+
+	constructor(private world: World) {
+		const constructors = Modding.getDecorators<typeof SyncComponent>();
+
+		for (const { object } of constructors) {
+			this.componentNameCtorMap.set(tostring(Object), object as unknown as ComponentCtor);
+		}
+
+		this.connection = Modding.onListenerAdded<typeof SyncComponent>((object) => {
+			const decorator = Modding.getDecorator<typeof SyncComponent>(object);
+			if (decorator) {
+				this.componentNameCtorMap.set(tostring(Object), object as unknown as ComponentCtor);
+			}
+		});
+	}
 
 	sync<T>(payload: SyncPayload<T>) {
-		for (const [serverEntityId, components] of entities) {
+		const world = this.world;
+		const entityIdMap = this.entityIdMap;
+
+		for (const [serverEntityId, components] of entries(payload)) {
 			let clientEntityId = entityIdMap.get(serverEntityId);
 
-			if (clientEntityId !== undefined && components.isEmpty()) {
-				// ! Важно удостовериться что клиент сам не уничтожил данную сущность
+			if (clientEntityId !== undefined && values(components).isEmpty()) {
 				if (world.contains(clientEntityId)) {
 					world.despawn(clientEntityId);
 				}
 
 				entityIdMap.delete(serverEntityId);
-				// logger.Info(`Despawning clientEntityId(${clientEntityId}) - serverEntityId(${serverEntityId})`);
 
 				continue;
 			}
 
-			const componentsToInsert = new Array<ReplicatableComponent>();
-			const componentsToRemove = new Array<GenericComponentCtor<ReplicatableComponent>>();
+			const componentsToInsert = new Array<AnyComponent>();
+			const componentsToRemove = new Array<ComponentCtor>();
 
-			const insertNames = new Array<ReplicatableComponentName>();
-			const removeNames = new Array<ReplicatableComponentName>();
+			const insertNames = new Array<string>();
+			const removeNames = new Array<string>();
 
-			for (const [componentName, componentData] of components) {
-				const component = ReplicatableComponents[componentName] as ReplicatableComponentCtor;
+			for (const [componentName, componentData] of entries(components)) {
+				const component = this.componentNameCtorMap.get(componentName);
+				if (!component) continue;
 
 				const data = componentData.data;
 				if (data) {
@@ -45,10 +69,6 @@ export class ClientSyncer {
 				clientEntityId = world.spawn(...componentsToInsert);
 
 				entityIdMap.set(serverEntityId, clientEntityId);
-
-				// logger.Info(
-				// 	`Spawning clientEntityId(${clientEntityId}):serverEntityId(${serverEntityId}) with ${insertNames.join(",")}`,
-				// );
 			} else {
 				if (!componentsToInsert.isEmpty()) {
 					world.insert(clientEntityId, ...componentsToInsert);
@@ -57,11 +77,11 @@ export class ClientSyncer {
 				if (!componentsToRemove.isEmpty()) {
 					world.remove(clientEntityId, ...componentsToRemove);
 				}
-
-				// logger.Info(
-				// 	`Modify clientEntityId(${clientEntityId}):serverEntityId(${serverEntityId}) adding ${insertNames.isEmpty() ? "nothing" : insertNames.join(", ")}, removing ${removeNames.isEmpty() ? "nothing" : removeNames.join(", ")}`,
-				// );
 			}
 		}
+	}
+
+	destroy() {
+		this.connection.Disconnect();
 	}
 }
