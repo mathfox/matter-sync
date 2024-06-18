@@ -34,7 +34,6 @@
         "baseUrl": "src",
         "incremental": true,
         "tsBuildInfoFile": "out/tsconfig.tsbuildinfo",
-        "skipLibCheck": true,
         "plugins": [
             {
                 "transform": "rbxts-transformer-services"
