@@ -1,4 +1,4 @@
-export type ComponentsPayload<T> = {
+export type ComponentsPayload<T = undefined> = {
 	[componentName in string]: { data: T | undefined };
 };
 
