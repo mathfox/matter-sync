@@ -3,3 +3,4 @@ out
 include
 *.tsbuildinfo
 sourcemap.json
+flamework.build
