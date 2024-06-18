@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/matter-sync",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "Server-client sync library for Matter ECS.",
 	"main": "out/init.lua",
 	"scripts": {
