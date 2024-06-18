@@ -1,6 +1,6 @@
 import { Modding, Reflect } from "@flamework/core";
 
-export const SyncComponentKey = "MatterSyncComponent";
+export const SyncComponentKey = "$:matter-sync@SyncComponent";
 
 /**
  * @metadata flamework:parameters
@@ -10,5 +10,3 @@ export const SyncComponent = Modding.createDecorator("Property", (descriptor) =>
 
 	Reflect.defineMetadata(descriptor.object, SyncComponentKey, true, descriptor.property);
 });
-
-export type SyncComponent = typeof SyncComponent;
