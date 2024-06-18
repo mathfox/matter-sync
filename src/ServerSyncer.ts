@@ -3,6 +3,7 @@ import { ComponentsPayload, type SyncPayload } from "./Types";
 import { World } from "@rbxts/matter";
 import { SyncComponentsListener } from "./SyncComponentsListener";
 import { values } from "@rbxts/object-utils";
+import { componentNameCtorMap } from "./componentNameCtorMap";
 
 export type ServerSyncerCallback<T> = (payload: SyncPayload<T>) => void;
 
@@ -17,7 +18,7 @@ export class ServerSyncer<T = undefined> {
 
 			const changes: SyncPayload<T> = {};
 
-			for (const [componentName, component] of pairs(this.componentsListener.componentNameCtorMap)) {
+			for (const [componentName, component] of pairs(componentNameCtorMap)) {
 				for (const [id, record] of world.queryChanged(component)) {
 					const encodedEntityId = tostring(id);
 
