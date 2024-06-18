@@ -1,4 +1,7 @@
+import { type SyncPayload } from "sync";
 
-export interface ServerSyncer {
-     readonly __nominal: unique symbol
+export class ServerSyncer {
+    setCallback(callback: (payload: SyncPayload) => void) {}
+
+	hydrate() {}
 }
