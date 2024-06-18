@@ -9,7 +9,7 @@
         "jsxFragmentFactory": "React.Fragment",
         "module": "CommonJS",
         "moduleResolution": "Node",
-        "noLib": true,
+        "noLib": false,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
         "moduleDetection": "force",
@@ -18,17 +18,7 @@
             "node_modules/@rbxts",
             "node_modules/@flamework"
         ],
-        // configurable
-        "allowUnreachableCode": false,
-        "exactOptionalPropertyTypes": true,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitOverride": true,
-        "noImplicitReturns": false,
-        "noPropertyAccessFromIndexSignature": true,
-        "resolveJsonModule": true,
-        "removeComments": true,
-        "disableSizeLimit": true,
-        "disableReferencedProjectLoad": true,
+
         "rootDir": "src",
         "outDir": "out",
         "baseUrl": "src",
