@@ -6,6 +6,7 @@
         "downlevelIteration": true,
         "module": "CommonJS",
         "moduleResolution": "Node",
+        "resolveJsonModule": true,
         "noLib": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
@@ -18,8 +19,8 @@
 
         "rootDir": "src",
         "outDir": "out",
-        "baseUrl": "src",
         "incremental": true,
+        "declaration": true,
         "tsBuildInfoFile": "out/tsconfig.tsbuildinfo",
         "plugins": [
             {
