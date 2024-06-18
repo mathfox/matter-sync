@@ -4,29 +4,17 @@ import { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
 import Object, { values } from "@rbxts/object-utils";
 import { entries } from "@rbxts/sift/out/Dictionary";
 import { SyncComponent } from "SyncComponent";
-import { SyncPayload } from "sync";
+import { SyncPayload } from "./Types";
+import { SyncComponentsListener } from "SyncComponentsListener";
 
-export class ClientSyncer {
+export class ClientSyncer<T = undefined> {
 	private entityIdMap = new Map<string, AnyEntity>();
-	private componentNameCtorMap = new Map<string, (...args: any[]) => AnyComponent>();
-	private connection: RBXScriptConnection;
+    private componentsListener = new SyncComponentsListener()
 
 	constructor(private world: World) {
-		const constructors = Modding.getDecorators<typeof SyncComponent>();
-
-		for (const { object } of constructors) {
-			this.componentNameCtorMap.set(tostring(Object), object as unknown as ComponentCtor);
-		}
-
-		this.connection = Modding.onListenerAdded<typeof SyncComponent>((object) => {
-			const decorator = Modding.getDecorator<typeof SyncComponent>(object);
-			if (decorator) {
-				this.componentNameCtorMap.set(tostring(Object), object as unknown as ComponentCtor);
-			}
-		});
 	}
 
-	sync<T>(payload: SyncPayload<T>) {
+	sync(payload: SyncPayload<T>) {
 		const world = this.world;
 		const entityIdMap = this.entityIdMap;
 
@@ -50,7 +38,7 @@ export class ClientSyncer {
 			const removeNames = new Array<string>();
 
 			for (const [componentName, componentData] of entries(components)) {
-				const component = this.componentNameCtorMap.get(componentName);
+				const component = this.componentsListener.getComponentCtor(componentName);
 				if (!component) continue;
 
 				const data = componentData.data;
@@ -82,6 +70,6 @@ export class ClientSyncer {
 	}
 
 	destroy() {
-		this.connection.Disconnect();
+        this.componentsListener.destroy()
 	}
 }

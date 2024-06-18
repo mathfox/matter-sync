@@ -5,5 +5,3 @@ export type ComponentsPayload<T> = {
 export type SyncPayload<T> = {
 	[serverEntityId in string]: ComponentsPayload<T>;
 };
-
-export const sync = {};
