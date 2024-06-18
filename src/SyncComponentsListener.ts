@@ -1,7 +1,7 @@
 import { Modding } from "@flamework/core";
 import { AnyComponent } from "@rbxts/matter";
 import { ComponentCtor } from "@rbxts/matter/lib/component";
-import { SyncComponent } from "SyncComponent";
+import { SyncComponent } from "./SyncComponent";
 
 export class SyncComponentsListener {
 	componentNameCtorMap = new Map<string, (...args: any[]) => AnyComponent>();
@@ -22,13 +22,13 @@ export class SyncComponentsListener {
 		});
 	}
 
-    getComponentCtor(componentName: string) {
-        return this.componentNameCtorMap.get(componentName)
-    }
+	getComponentCtor(componentName: string) {
+		return this.componentNameCtorMap.get(componentName);
+	}
 
-    hasComponentCtor(componentName: string) {
-        return this.componentNameCtorMap.has(componentName)
-    }
+	hasComponentCtor(componentName: string) {
+		return this.componentNameCtorMap.has(componentName);
+	}
 
 	destroy() {
 		this.connection.Disconnect();

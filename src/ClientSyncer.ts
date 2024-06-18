@@ -1,18 +1,15 @@
-import { Modding } from "@flamework/core";
-import { AnyEntity, GenericOfComponent, World } from "@rbxts/matter";
+import { AnyEntity, World } from "@rbxts/matter";
 import { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
-import Object, { values } from "@rbxts/object-utils";
+import { values } from "@rbxts/object-utils";
 import { entries } from "@rbxts/sift/out/Dictionary";
-import { SyncComponent } from "SyncComponent";
 import { SyncPayload } from "./Types";
-import { SyncComponentsListener } from "SyncComponentsListener";
+import { SyncComponentsListener } from "./SyncComponentsListener";
 
 export class ClientSyncer<T = undefined> {
 	private entityIdMap = new Map<string, AnyEntity>();
-    private componentsListener = new SyncComponentsListener()
+	private componentsListener = new SyncComponentsListener();
 
-	constructor(private world: World) {
-	}
+	constructor(private world: World) {}
 
 	sync(payload: SyncPayload<T>) {
 		const world = this.world;
@@ -70,6 +67,6 @@ export class ClientSyncer<T = undefined> {
 	}
 
 	destroy() {
-        this.componentsListener.destroy()
+		this.componentsListener.destroy();
 	}
 }

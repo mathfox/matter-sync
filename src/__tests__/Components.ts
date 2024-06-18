@@ -1,5 +1,5 @@
 import { component } from "@rbxts/matter";
-import { SyncComponent } from "SyncComponent";
+import { SyncComponent } from "../SyncComponent";
 
 export class Components {
     @SyncComponent()

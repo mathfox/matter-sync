@@ -1,7 +1,7 @@
 import { RunService } from "@rbxts/services";
 import { ComponentsPayload, type SyncPayload } from "./Types";
 import { World } from "@rbxts/matter";
-import { SyncComponentsListener } from "SyncComponentsListener";
+import { SyncComponentsListener } from "./SyncComponentsListener";
 import { values } from "@rbxts/object-utils";
 
 export type ServerSyncerCallback<T> = (payload: SyncPayload<T>) => void;
@@ -68,7 +68,7 @@ export class ServerSyncer<T = undefined> {
 			}
 		}
 
-        return entities
+		return entities;
 	}
 
 	destroy() {
