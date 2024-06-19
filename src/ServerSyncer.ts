@@ -1,6 +1,6 @@
 import { RunService } from "@rbxts/services";
-import { ComponentsPayload, type SyncPayload } from "./Types";
-import { World } from "@rbxts/matter";
+import type { ComponentsPayload, SyncPayload } from "./Types";
+import type { World } from "@rbxts/matter";
 import { values } from "@rbxts/object-utils";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 

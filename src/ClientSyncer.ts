@@ -1,8 +1,8 @@
-import { AnyEntity, World } from "@rbxts/matter";
-import { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
+import type { AnyEntity, World } from "@rbxts/matter";
+import type { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
 import { values } from "@rbxts/object-utils";
 import { entries } from "@rbxts/sift/out/Dictionary";
-import { SyncPayload } from "./Types";
+import type { SyncPayload } from "./Types";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
 export class ClientSyncer<T = undefined> {

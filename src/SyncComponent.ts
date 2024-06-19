@@ -1,5 +1,5 @@
 import { Modding, Reflect } from "@flamework/core";
-import { ComponentCtor } from "@rbxts/matter/lib/component";
+import type { ComponentCtor } from "@rbxts/matter/lib/component";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
 export const SyncComponentKey = "$:matter-sync@SyncComponent";
