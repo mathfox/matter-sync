@@ -15,7 +15,7 @@ export class ClientSyncer<T = undefined> {
 		for (const [serverEntityId, components] of pairs(payload)) {
 			let clientEntityId = entityIdMap.get(serverEntityId);
 
-			if (clientEntityId !== undefined && next(components)[0] !== undefined ) {
+			if (clientEntityId !== undefined && next(components)[0] === undefined ) {
 				if (world.contains(clientEntityId)) {
 					world.despawn(clientEntityId);
 				}
