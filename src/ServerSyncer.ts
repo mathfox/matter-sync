@@ -1,6 +1,6 @@
-import type { ComponentsPayload, SyncPayload } from "./Types";
 import type { World } from "@rbxts/matter";
 import { values } from "@rbxts/object-utils";
+import type { ComponentsPayload, SyncPayload } from "./Types";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
 export type ServerSyncerCallback<T> = (payload: SyncPayload<T>) => void;

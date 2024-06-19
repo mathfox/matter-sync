@@ -1,7 +1,6 @@
 import type { AnyEntity, World } from "@rbxts/matter";
 import type { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
 import { values } from "@rbxts/object-utils";
-import { entries } from "@rbxts/sift/out/Dictionary";
 import type { SyncPayload } from "./Types";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
@@ -14,7 +13,7 @@ export class ClientSyncer<T = undefined> {
 		const world = this.world;
 		const entityIdMap = this.entityIdMap;
 
-		for (const [serverEntityId, components] of entries(payload)) {
+		for (const [serverEntityId, components] of pairs(payload)) {
 			let clientEntityId = entityIdMap.get(serverEntityId);
 
 			if (clientEntityId !== undefined && values(components).isEmpty()) {
@@ -33,7 +32,7 @@ export class ClientSyncer<T = undefined> {
 			const insertNames = new Array<string>();
 			const removeNames = new Array<string>();
 
-			for (const [componentName, componentData] of entries(components)) {
+			for (const [componentName, componentData] of pairs(components)) {
 				const component = componentNameCtorMap.get(componentName);
 				if (!component) continue;
 
