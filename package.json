@@ -36,15 +36,10 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.1",
-		"@flamework/core": "^1.2.3",
 		"@rbxts/compiler-types": "^2.3.0-types.1",
 		"@rbxts/matter": "^0.8.1",
 		"@rbxts/object-utils": "^1.0.4",
-		"@rbxts/services": "^1.5.4",
-		"@rbxts/sift": "^0.0.9",
 		"@rbxts/types": "^1.0.778",
-		"rbxts-transformer-flamework": "^1.2.3",
-		"rbxts-transformer-services": "^1.1.1",
 		"roblox-ts": "^2.3.0-dev-d7847ea",
 		"typescript": "^5.4.5"
 	}

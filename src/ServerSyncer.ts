@@ -1,4 +1,3 @@
-import { RunService } from "@rbxts/services";
 import type { ComponentsPayload, SyncPayload } from "./Types";
 import type { World } from "@rbxts/matter";
 import { values } from "@rbxts/object-utils";
