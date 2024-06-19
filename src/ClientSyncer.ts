@@ -1,6 +1,5 @@
 import type { AnyEntity, World } from "@rbxts/matter";
 import type { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
-import { values } from "@rbxts/object-utils";
 import type { SyncPayload } from "./Types";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
@@ -16,7 +15,7 @@ export class ClientSyncer<T = undefined> {
 		for (const [serverEntityId, components] of pairs(payload)) {
 			let clientEntityId = entityIdMap.get(serverEntityId);
 
-			if (clientEntityId !== undefined && values(components).isEmpty()) {
+			if (clientEntityId !== undefined && next(components)[0] !== undefined ) {
 				if (world.contains(clientEntityId)) {
 					world.despawn(clientEntityId);
 				}

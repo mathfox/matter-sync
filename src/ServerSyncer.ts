@@ -1,5 +1,4 @@
 import type { World } from "@rbxts/matter";
-import { values } from "@rbxts/object-utils";
 import type { ComponentsPayload, SyncPayload } from "./Types";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
@@ -30,7 +29,7 @@ export class ServerSyncer<T = undefined> {
 			}
 		}
 
-		if (!values(changes).isEmpty()) {
+		if (next(changes)[0] !== undefined) {
 			this.callback(changes);
 		}
 	}
