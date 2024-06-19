@@ -1,7 +1,7 @@
 import { component } from "@rbxts/matter";
-import { SyncComponent } from "../SyncComponent";
+import { SyncComponent } from "../addSyncComponent";
 
 export class Components {
-    @SyncComponent()
-    static readonly Component = component("Component")
+	@SyncComponent()
+	static readonly Component = component("Component");
 }

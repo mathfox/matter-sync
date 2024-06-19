@@ -1,4 +1,4 @@
 export type * from "./Types";
-export { SyncComponent } from "./SyncComponent";
+export * from "./addSyncComponent";
 export * from "./ServerSyncer";
 export * from "./ClientSyncer";
