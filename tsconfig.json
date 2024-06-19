@@ -6,7 +6,6 @@
         "downlevelIteration": true,
         "module": "CommonJS",
         "moduleResolution": "Node",
-        "resolveJsonModule": true,
         "noLib": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
@@ -16,7 +15,6 @@
             "node_modules/@rbxts",
             "node_modules/@flamework"
         ],
-
         "rootDir": "src",
         "outDir": "out",
         "incremental": true,
@@ -31,7 +29,4 @@
             }
         ]
     },
-    "include": [
-        "src/**/*",
-    ]
 }
