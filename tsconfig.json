@@ -1,6 +1,5 @@
 {
 	"compilerOptions": {
-		// required
 		"strict": true,
 		"allowSyntheticDefaultImports": true,
 		"downlevelIteration": true,
@@ -13,8 +12,6 @@
 		"typeRoots": ["node_modules/@rbxts"],
 		"rootDir": "src",
 		"outDir": "out",
-		"incremental": true,
-		"declaration": true,
-		"tsBuildInfoFile": "out/tsconfig.tsbuildinfo"
+		"declaration": true
 	}
 }
