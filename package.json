@@ -1,12 +1,10 @@
 {
 	"name": "@rbxts/matter-sync",
-	"version": "0.0.21",
+	"version": "0.0.22",
 	"description": "Server-client sync library for Matter ECS.",
 	"main": "out/init.lua",
 	"scripts": {
-		"build": "rbxtsc",
-		"watch": "rbxtsc -w",
-		"prepublishOnly": "npm run build",
+		"prepublishOnly": "rbxtsc",
 		"fmt": "bunx @biomejs/biome check --write"
 	},
 	"repository": {
@@ -30,11 +28,11 @@
 	},
 	"dependencies": {
 		"@rbxts/compiler-types": "^2.3.0-types.1",
-		"@rbxts/matter": "0.8.3",
-		"@rbxts/types": "1.0.787"
+		"@rbxts/matter": "*",
+		"@rbxts/types": "*"
 	},
 	"devDependencies": {
 		"roblox-ts": "^2.3.0-dev-8137656",
-		"typescript": "5.5.2"
+		"typescript": "*"
 	}
 }
