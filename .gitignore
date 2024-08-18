@@ -1,4 +1,3 @@
-node_modules
-out
-*.tsbuildinfo
-sourcemap.json
+/node_modules
+/out
+/sourcemap.json
