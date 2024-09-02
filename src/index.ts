@@ -1,4 +1,5 @@
 export * from "./addSyncComponent";
-export * from "./ClientSyncer";
-export * from "./ServerSyncer";
+export * from "./removeSyncComponent";
+export * from "./syncClient";
+export * from "./ServerSync";
 export type * from "./Types";
