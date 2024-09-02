@@ -13,5 +13,7 @@
 		"rootDir": "src",
 		"outDir": "out",
 		"declaration": true
-	}
+	},
+	"include": ["src"],
+	"exclude": ["**/node_modules", "**/.*/"]
 }

@@ -1,8 +1,8 @@
 import type { AnyEntity, World } from "@rbxts/matter";
 import type { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
 import type {
-	ComponentsPayload,
 	ComponentSyncData,
+	ComponentsPayload,
 	SyncPayload,
 } from "./Types";
 import { componentNameCtorMap } from "./componentNameCtorMap";
