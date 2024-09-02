@@ -1,13 +1,15 @@
 {
 	"name": "@rbxts/matter-sync",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Server-client sync library for Matter ECS.",
 	"main": "out/init.lua",
+	"types": "out/index.d.ts",
+	"files": ["out", "!out/examples", "!out/jest.config.*"],
 	"scripts": {
-		"prepublishOnly": "bun run build",
+		"prepublishOnly": "bun run check && bun run build",
 		"build": "rbxtsc --type game",
 		"build:tests": "rbxtsc --rojo tests.project.json --type game --noInclude",
-		"sourcemap:tests": "rojo sourcemap tests.project.json -o sourcemap.json",
+		"sourcemap:tests": "rojo sourcemap tests.project.json --output sourcemap.json",
 		"check": "bunx @biomejs/biome check --write",
 		"serve:tests": "rojo serve tests.project.json",
 		"test": "bun run build:tests && rojo build tests.project.json --output tests/tests-place.rbxl && run-in-roblox --script tests/run-tests.luau --place tests/tests-place.rbxl"
@@ -26,8 +28,6 @@
 		"url": "https://github.com/mathfox/matter-sync/issues"
 	},
 	"homepage": "https://github.com/mathfox/matter-sync#readme",
-	"types": "out/index.d.ts",
-	"files": ["out", "!out/examples"],
 	"publishConfig": {
 		"access": "public"
 	},
