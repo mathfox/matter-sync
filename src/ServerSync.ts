@@ -1,69 +1,74 @@
 import type { World } from "@rbxts/matter";
-import type { ComponentsPayload, SyncPayload } from "./Types";
+import type {
+	ComponentsHydratePayload,
+	ComponentsSyncPayload,
+	WorldPayload,
+} from "./Types";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
-export type ServerSyncerCallback<T> = (payload: SyncPayload<T>) => void;
-
-const serverSyncCallbacks = new Map<World, ServerSyncerCallback<unknown>>();
-
-let serverSyncCallback: ServerSyncerCallback<unknown> | undefined = undefined;
-
-export function setServerSyncCallback(
-	callback: ServerSyncerCallback<unknown>,
-): void {
-	serverSyncCallback = callback;
+export interface WorldPayloadResult {
+	payload: WorldPayload<unknown>;
+	isEmpty: boolean;
 }
 
-export function getInitialSyncPayload(world: World): SyncPayload<unknown> {
-	const entities: SyncPayload<unknown> = {};
+/**
+ * Returns the payload that represents the whole syncable state of the world.
+ *
+ * If the components payload of the entity is empty, it will be ommited from the result payload.
+ */
+export function getHydratePayload(world: World): WorldPayloadResult {
+	const entities: WorldPayload<ComponentsHydratePayload<unknown>> = {};
 
-	for (const [id, entityData] of world) {
-		const components: ComponentsPayload<unknown> = {};
-		const encodedEntityId = tostring(id);
-
-		const addComponentData = (name: string, data: unknown) => {
-			if (!(encodedEntityId in entities)) {
-				entities[encodedEntityId] = components;
-			}
-
-			components[name] = { data };
-		};
+	for (const [serverEntityId, entityData] of world) {
+		const encodedServerEntityId = tostring(serverEntityId);
+		const components: ComponentsHydratePayload<unknown> = {};
 
 		for (const [component, componentData] of entityData) {
 			const encodedComponentName = tostring(component);
 
-			if (!componentNameCtorMap.has(encodedComponentName)) continue;
+			if (componentNameCtorMap.has(encodedComponentName)) {
+				if (!(encodedServerEntityId in entities)) {
+					entities[encodedServerEntityId] = components;
+				}
 
-			addComponentData(encodedComponentName, componentData);
+				components[encodedComponentName] = { data: componentData };
+			}
 		}
 	}
 
-	return entities;
+	return {
+		payload: entities,
+		isEmpty: next(entities)[0] === undefined,
+	};
 }
 
-export function serverSyncSystem(world: World): void {
-	if (!serverSyncCallback) return;
-
-	const changes: SyncPayload<unknown> = {};
+/**
+ * A hook that should be called each frame.
+ *
+ * Returns a payload that contains all of the changes since the last frame.
+ */
+export function useSyncPayload(world: World): WorldPayloadResult {
+	const changes: WorldPayload<ComponentsSyncPayload<unknown>> = {};
 
 	for (const [componentName, component] of componentNameCtorMap) {
-		for (const [id, record] of world.queryChanged(component)) {
-			const encodedEntityId = tostring(id);
+		for (const [serverEntityId, record] of world.queryChanged(component)) {
+			const encodedServerEntityId = tostring(serverEntityId);
 
-			let components = changes[encodedEntityId];
+			let components = changes[encodedServerEntityId];
 			if (!components) {
-				const newComponents: ComponentsPayload<unknown> = {};
-				changes[encodedEntityId] = newComponents;
+				const newComponents: ComponentsSyncPayload<unknown> = {};
+				changes[encodedServerEntityId] = newComponents;
 				components = newComponents;
 			}
 
-			if (world.contains(id)) {
+			if (world.contains(serverEntityId)) {
 				components[componentName] = { data: record.new };
 			}
 		}
 	}
 
-	if (next(changes)[0] !== undefined) {
-		serverSyncCallback(changes);
-	}
+	return {
+		payload: changes,
+		isEmpty: next(changes)[0] === undefined,
+	};
 }

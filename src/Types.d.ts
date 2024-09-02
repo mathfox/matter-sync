@@ -1,9 +1,16 @@
-export type ComponentSyncData<T = undefined> = { data: T | undefined };
+/**
+ * In case the `data` field is equal to `undefined` it means the component has been removed from the entity.
+ */
+export type ComponentSyncData<TData = unknown> = { data: TData | undefined };
 
-export type ComponentsPayload<T = undefined> = {
-	[componentName in string]: ComponentSyncData<T>;
+export type ComponentsSyncPayload<TData = unknown> = {
+	[componentName in string]: ComponentSyncData<TData>;
 };
 
-export type SyncPayload<T = undefined> = {
-	[serverEntityId in string]: ComponentsPayload<T>;
+export type WorldPayload<TComponents> = {
+	[serverEntityId in string]: TComponents;
+};
+
+export type ComponentsHydratePayload<TData = unknown> = {
+	[componentName in string]: TData;
 };
