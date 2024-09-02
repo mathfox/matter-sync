@@ -4,14 +4,16 @@
 	"description": "Server-client sync library for Matter ECS.",
 	"main": "out/init.lua",
 	"scripts": {
-		"prepublishOnly": "rbxtsc",
+		"prepublishOnly": "bun run build",
+		"build": "rbxtsc --type game",
+		"build:tests": "rbxtsc --type game --rojo tests.project.json",
 		"check": "bunx @biomejs/biome check --write"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/mathfox/matter-sync.git"
 	},
-	"keywords": ["matter", "sync", "replication"],
+	"keywords": ["roblox", "roblox-ts", "matter", "sync", "replication"],
 	"author": {
 		"name": "Ivan Leontev",
 		"url": "https://github.com/mathfox"
@@ -22,17 +24,20 @@
 	},
 	"homepage": "https://github.com/mathfox/matter-sync#readme",
 	"types": "out/index.d.ts",
-	"files": ["out", "!**/*.tsbuildinfo"],
+	"files": ["out", "!out/examples"],
 	"publishConfig": {
 		"access": "public"
 	},
 	"dependencies": {
-		"@rbxts/compiler-types": "^2.3.0-types.1",
+		"@rbxts/compiler-types": "^2.3.0-types.2",
 		"@rbxts/matter": "^0.8.5",
-		"@rbxts/types": "^1.0.799"
+		"@rbxts/services": "^1.5.5",
+		"@rbxts/types": "^1.0.804"
 	},
 	"devDependencies": {
-		"roblox-ts": "^2.3.0-dev-8137656",
-		"typescript": "^5.6.0-dev.20240817"
+		"@rbxts/jest": "^0.1.0",
+		"@rbxts/jest-globals": "^0.1.0",
+		"roblox-ts": "^2.3.0-dev-5532593",
+		"typescript": "^5.7.0-dev.20240902"
 	}
 }
