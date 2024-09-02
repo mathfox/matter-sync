@@ -4,64 +4,66 @@ import { componentNameCtorMap } from "./componentNameCtorMap";
 
 export type ServerSyncerCallback<T> = (payload: SyncPayload<T>) => void;
 
-export class ServerSyncer<T = undefined> {
-	private callback?: ServerSyncerCallback<T>;
+const serverSyncCallbacks = new Map<World, ServerSyncerCallback<unknown>>();
 
-	system(world: World) {
-		if (!this.callback) return;
+let serverSyncCallback: ServerSyncerCallback<unknown> | undefined = undefined;
 
-		const changes: SyncPayload<T> = {};
+export function setServerSyncCallback(
+	callback: ServerSyncerCallback<unknown>,
+): void {
+	serverSyncCallback = callback;
+}
 
-		for (const [componentName, component] of pairs(componentNameCtorMap)) {
-			for (const [id, record] of world.queryChanged(component)) {
-				const encodedEntityId = tostring(id);
+export function getInitialSyncPayload(world: World): SyncPayload<unknown> {
+	const entities: SyncPayload<unknown> = {};
 
-				let components = changes[encodedEntityId];
-				if (!components) {
-					const newComponents: ComponentsPayload<T> = {};
-					changes[encodedEntityId] = newComponents;
-					components = newComponents;
-				}
+	for (const [id, entityData] of world) {
+		const components: ComponentsPayload<unknown> = {};
+		const encodedEntityId = tostring(id);
 
-				if (world.contains(id)) {
-					components[componentName] = { data: record.new as T | undefined };
-				}
+		const addComponentData = (name: string, data: unknown) => {
+			if (!(encodedEntityId in entities)) {
+				entities[encodedEntityId] = components;
 			}
-		}
 
-		if (next(changes)[0] !== undefined) {
-			this.callback(changes);
+			components[name] = { data };
+		};
+
+		for (const [component, componentData] of entityData) {
+			const encodedComponentName = tostring(component);
+
+			if (!componentNameCtorMap.has(encodedComponentName)) continue;
+
+			addComponentData(encodedComponentName, componentData);
 		}
 	}
 
-	setCallback(callback: ServerSyncerCallback<T>) {
-		this.callback = callback;
-	}
+	return entities;
+}
 
-	getInitialPayload(world: World) {
-		const entities: SyncPayload<T> = {};
+export function serverSyncSystem(world: World): void {
+	if (!serverSyncCallback) return;
 
-		for (const [id, entityData] of world) {
-			const components: ComponentsPayload<T> = {};
+	const changes: SyncPayload<unknown> = {};
+
+	for (const [componentName, component] of componentNameCtorMap) {
+		for (const [id, record] of world.queryChanged(component)) {
 			const encodedEntityId = tostring(id);
 
-			const addComponentData = (name: string, data: T) => {
-				if (!(encodedEntityId in entities)) {
-					entities[encodedEntityId] = components;
-				}
+			let components = changes[encodedEntityId];
+			if (!components) {
+				const newComponents: ComponentsPayload<unknown> = {};
+				changes[encodedEntityId] = newComponents;
+				components = newComponents;
+			}
 
-				components[name] = { data };
-			};
-
-			for (const [component, componentData] of entityData) {
-				const encodedComponentName = tostring(component);
-
-				if (!componentNameCtorMap.has(encodedComponentName)) continue;
-
-				addComponentData(encodedComponentName, componentData as unknown as T);
+			if (world.contains(id)) {
+				components[componentName] = { data: record.new };
 			}
 		}
+	}
 
-		return entities;
+	if (next(changes)[0] !== undefined) {
+		serverSyncCallback(changes);
 	}
 }

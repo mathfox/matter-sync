@@ -1,6 +1,10 @@
 import type { AnyEntity, World } from "@rbxts/matter";
 import type { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
-import type { SyncPayload } from "./Types";
+import type {
+	ComponentsPayload,
+	ComponentSyncData,
+	SyncPayload,
+} from "./Types";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
 export class ClientSyncer<T = undefined> {
@@ -8,11 +12,14 @@ export class ClientSyncer<T = undefined> {
 
 	constructor(private world: World) {}
 
-	sync(payload: SyncPayload<T>) {
+	sync(payload: SyncPayload<T>): void {
 		const world = this.world;
 		const entityIdMap = this.entityIdMap;
 
-		for (const [serverEntityId, components] of pairs(payload)) {
+		for (const [serverEntityId, components] of payload as unknown as Map<
+			string,
+			ComponentsPayload<T>
+		>) {
 			let clientEntityId = entityIdMap.get(serverEntityId);
 
 			if (clientEntityId !== undefined && next(components)[0] === undefined) {
@@ -31,7 +38,10 @@ export class ClientSyncer<T = undefined> {
 			const insertNames = new Array<string>();
 			const removeNames = new Array<string>();
 
-			for (const [componentName, componentData] of pairs(components)) {
+			for (const [componentName, componentData] of components as unknown as Map<
+				string,
+				ComponentSyncData<T>
+			>) {
 				const component = componentNameCtorMap.get(componentName);
 				if (!component) continue;
 
