@@ -1,8 +1,8 @@
 import { expect, it } from "@rbxts/jest-globals";
 import { type AnyEntity, World, component } from "@rbxts/matter";
 import { syncClient } from "./ClientSync";
-import type { SyncPayload } from "./Types";
 import { addSyncComponent } from "./addSyncComponent";
+import type { ComponentsSyncPayload, WorldPayload } from "./Types";
 
 it("should sync the client", () => {
 	const Component = component<{
@@ -11,7 +11,7 @@ it("should sync the client", () => {
 
 	addSyncComponent(Component);
 
-	const payload = identity<SyncPayload<unknown>>({
+	const payload = identity<WorldPayload<ComponentsSyncPayload<unknown>>>({
 		"3": {
 			Component: { data: { value: 3 } },
 		},
