@@ -7,7 +7,7 @@
 	"files": ["out", "!out/examples", "!out/jest.config.*"],
 	"scripts": {
 		"prepublishOnly": "bun run check && bun run build",
-		"build": "rbxtsc --type game",
+		"build": "rbxtsc --type package",
 		"build:tests": "rbxtsc --rojo tests.project.json --type game --noInclude",
 		"sourcemap:tests": "rojo sourcemap tests.project.json --output sourcemap.json",
 		"check": "bunx @biomejs/biome check --write",
