@@ -7,7 +7,9 @@
 		"prepublishOnly": "bun run build",
 		"build": "rbxtsc --type game",
 		"build:tests": "rbxtsc --type game --rojo tests.project.json",
-		"check": "bunx @biomejs/biome check --write"
+		"check": "bunx @biomejs/biome check --write",
+		"serve:tests": "rojo serve tests.project.json",
+		"test": "run-in-roblox --script tests/run-tests.luau --place tests/tests-place.rbxlx"
 	},
 	"repository": {
 		"type": "git",
