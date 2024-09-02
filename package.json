@@ -6,10 +6,11 @@
 	"scripts": {
 		"prepublishOnly": "bun run build",
 		"build": "rbxtsc --type game",
-		"build:tests": "rbxtsc --type game --rojo tests.project.json",
+		"build:tests": "rbxtsc --rojo tests.project.json --type game --noInclude",
+		"sourcemap:tests": "rojo sourcemap tests.project.json -o sourcemap.json",
 		"check": "bunx @biomejs/biome check --write",
 		"serve:tests": "rojo serve tests.project.json",
-		"test": "run-in-roblox --script tests/run-tests.luau --place tests/tests-place.rbxlx"
+		"test": "bun run build:tests && rojo build tests.project.json --output tests/tests-place.rbxl && run-in-roblox --script tests/run-tests.luau --place tests/tests-place.rbxl"
 	},
 	"repository": {
 		"type": "git",

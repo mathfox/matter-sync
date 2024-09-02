@@ -6,6 +6,8 @@ import { componentNameCtorMap } from "./componentNameCtorMap";
 it("should add syncable component", () => {
 	const Component = component("Component");
 
+	expect(componentNameCtorMap.has("Component")).toBe(false);
+
 	addSyncComponent(Component);
 
 	expect(componentNameCtorMap.has("Component")).toBe(true);

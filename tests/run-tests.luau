@@ -1,15 +1,6 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local runCLI = TS.import(
-	script,
-	game:GetService("ReplicatedStorage"),
-	"rbxts_include",
-	"node_modules",
-	"@rbxts",
-	"jest",
-	"src"
-).runCLI
+local runCLI = require(ReplicatedStorage.rbxts_include.node_modules["@rbxts"].jest.src).runCLI
 
 local processServiceExists, ProcessService = pcall(function()
 	return game:GetService("ProcessService")
