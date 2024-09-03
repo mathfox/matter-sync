@@ -1,8 +1,8 @@
 import type { World } from "@rbxts/matter";
 import type { AnyComponent } from "@rbxts/matter/lib/component";
 import type { ComponentsHydratePayload, WorldPayload } from "./Types";
-import { componentNameCtorMap } from "./componentNameCtorMap";
 import { clientWorldsMap } from "./clientWorldsMap";
+import { componentNameCtorMap } from "./componentNameCtorMap";
 
 /**
  * Hydrates the client with the latest state of the world on the server.

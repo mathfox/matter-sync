@@ -1,8 +1,8 @@
-import { component, World, type AnyEntity } from "@rbxts/matter";
-import type { ComponentsHydratePayload, WorldPayload } from "./Types";
-import { hydrateClient } from "./hydrateClient";
 import { expect, it } from "@rbxts/jest-globals";
+import { type AnyEntity, World, component } from "@rbxts/matter";
+import type { ComponentsHydratePayload, WorldPayload } from "./Types";
 import { addSyncComponent } from "./addSyncComponent";
+import { hydrateClient } from "./hydrateClient";
 
 it("should hydrate the client state", () => {
 	const Component = component<{

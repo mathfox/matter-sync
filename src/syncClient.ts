@@ -5,8 +5,8 @@ import type {
 	ComponentsSyncPayload,
 	WorldPayload,
 } from "./Types";
-import { componentNameCtorMap } from "./componentNameCtorMap";
 import { clientWorldsMap } from "./clientWorldsMap";
+import { componentNameCtorMap } from "./componentNameCtorMap";
 
 /**
  * Should be invoked by the remote handler.
