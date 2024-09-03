@@ -20,6 +20,8 @@ local status, result = runCLI(ReplicatedStorage, {
 	ci = false,
 }, { ReplicatedStorage.MatterSync["jest.config"] }):awaitStatus()
 
+task.wait(1)
+
 if status == "Rejected" then
 	print(result)
 end

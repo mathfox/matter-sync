@@ -1,6 +1,6 @@
 import { expect, it } from "@rbxts/jest-globals";
 import { type AnyEntity, World, component } from "@rbxts/matter";
-import { syncClient } from "./ClientSync";
+import { syncClient } from "./syncClient";
 import type { ComponentsSyncPayload, WorldPayload } from "./Types";
 import { addSyncComponent } from "./addSyncComponent";
 
