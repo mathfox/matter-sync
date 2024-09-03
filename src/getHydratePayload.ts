@@ -13,7 +13,9 @@ import { componentNameCtorMap } from "./componentNameCtorMap";
  *
  * @shared
  */
-export function getHydratePayload(world: World): WorldPayloadResult {
+export function getHydratePayload(
+	world: World,
+): WorldPayloadResult<ComponentsHydratePayload<unknown>> {
 	const entities: WorldPayload<ComponentsHydratePayload<unknown>> = {};
 
 	for (const [entityId, entityData] of world) {

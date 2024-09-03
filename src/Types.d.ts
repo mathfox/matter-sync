@@ -18,9 +18,9 @@ export type ComponentsHydratePayload<TData = unknown> = {
 };
 
 /**
- * @server
+ * @shared
  */
-export interface WorldPayloadResult {
-	payload: WorldPayload<unknown>;
+export interface WorldPayloadResult<TComponents> {
+	payload: WorldPayload<TComponents>;
 	isEmpty: boolean;
 }

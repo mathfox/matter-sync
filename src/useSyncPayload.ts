@@ -13,7 +13,9 @@ import { componentNameCtorMap } from "./componentNameCtorMap";
  *
  * @shared
  */
-export function useSyncPayload(world: World): WorldPayloadResult {
+export function useSyncPayload(
+	world: World,
+): WorldPayloadResult<ComponentsSyncPayload<unknown>> {
 	const changes: WorldPayload<ComponentsSyncPayload<unknown>> = {};
 
 	for (const [componentName, component] of componentNameCtorMap) {
