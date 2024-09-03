@@ -8,6 +8,8 @@ import { componentNameCtorMap } from "./componentNameCtorMap";
  * Hydrates the client with the latest state of the world on the server.
  *
  * This function will throw an error if the `payload` is corrupted.
+ *
+ * @client
  */
 export function hydrateClient(
 	world: World,

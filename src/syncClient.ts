@@ -10,6 +10,8 @@ import { componentNameCtorMap } from "./componentNameCtorMap";
 
 /**
  * Should be invoked by the remote handler.
+ *
+ * @client
  */
 export function syncClient(
 	world: World,
