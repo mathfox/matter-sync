@@ -30,7 +30,7 @@ export function getHydratePayload(
 					entities[encodedEntityId] = components;
 				}
 
-				components[encodedComponentName] = { data: componentData };
+				components[encodedComponentName] = componentData;
 			}
 		}
 	}
