@@ -1,9 +1,5 @@
 import type { World } from "@rbxts/matter";
-import type {
-	ComponentsSyncPayload,
-	WorldPayload,
-	WorldPayloadResult,
-} from "./Types";
+import type { ComponentsSyncPayload, WorldPayload, WorldPayloadResult } from "./Types";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
 /**
@@ -13,9 +9,7 @@ import { componentNameCtorMap } from "./componentNameCtorMap";
  *
  * @shared
  */
-export function useSyncPayload(
-	world: World,
-): WorldPayloadResult<ComponentsSyncPayload<unknown>> {
+export function useSyncPayload(world: World): WorldPayloadResult<ComponentsSyncPayload<unknown>> {
 	const changes: WorldPayload<ComponentsSyncPayload<unknown>> = {};
 
 	for (const [componentName, component] of componentNameCtorMap) {

@@ -1,10 +1,6 @@
 import type { World } from "@rbxts/matter";
 import type { AnyComponent, ComponentCtor } from "@rbxts/matter/lib/component";
-import type {
-	ComponentSyncData,
-	ComponentsSyncPayload,
-	WorldPayload,
-} from "./Types";
+import type { ComponentSyncData, ComponentsSyncPayload, WorldPayload } from "./Types";
 import { clientWorldsMap } from "./clientWorldsMap";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
@@ -13,20 +9,14 @@ import { componentNameCtorMap } from "./componentNameCtorMap";
  *
  * @client
  */
-export function syncClient(
-	world: World,
-	payload: WorldPayload<ComponentsSyncPayload<unknown>>,
-): void {
+export function syncClient(world: World, payload: WorldPayload<ComponentsSyncPayload<unknown>>): void {
 	let entityIdMap = clientWorldsMap.get(world);
 	if (!entityIdMap) {
 		entityIdMap = new Map();
 		clientWorldsMap.set(world, entityIdMap);
 	}
 
-	for (const [serverEntityId, components] of payload as unknown as Map<
-		string,
-		ComponentsSyncPayload<unknown>
-	>) {
+	for (const [serverEntityId, components] of payload as unknown as Map<string, ComponentsSyncPayload<unknown>>) {
 		let clientEntityId = entityIdMap.get(serverEntityId);
 
 		if (clientEntityId !== undefined && next(components)[0] === undefined) {
@@ -45,10 +35,7 @@ export function syncClient(
 		const insertNames = new Array<string>();
 		const removeNames = new Array<string>();
 
-		for (const [componentName, componentData] of components as unknown as Map<
-			string,
-			ComponentSyncData<unknown>
-		>) {
+		for (const [componentName, componentData] of components as unknown as Map<string, ComponentSyncData<unknown>>) {
 			const component = componentNameCtorMap.get(componentName);
 			if (!component) continue;
 

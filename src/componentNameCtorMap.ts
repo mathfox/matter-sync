@@ -6,7 +6,4 @@ import type { AnyComponent } from "@rbxts/matter";
  * @internal
  * @shared
  */
-export const componentNameCtorMap = new Map<
-	string,
-	(...args: ReadonlyArray<unknown>) => AnyComponent
->();
+export const componentNameCtorMap = new Map<string, (...args: ReadonlyArray<unknown>) => AnyComponent>();

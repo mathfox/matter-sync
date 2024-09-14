@@ -1,9 +1,5 @@
 import type { World } from "@rbxts/matter";
-import type {
-	ComponentsHydratePayload,
-	WorldPayload,
-	WorldPayloadResult,
-} from "./Types";
+import type { ComponentsHydratePayload, WorldPayload, WorldPayloadResult } from "./Types";
 import { componentNameCtorMap } from "./componentNameCtorMap";
 
 /**
@@ -13,9 +9,7 @@ import { componentNameCtorMap } from "./componentNameCtorMap";
  *
  * @shared
  */
-export function getHydratePayload(
-	world: World,
-): WorldPayloadResult<ComponentsHydratePayload<unknown>> {
+export function getHydratePayload(world: World): WorldPayloadResult<ComponentsHydratePayload<unknown>> {
 	const entities: WorldPayload<ComponentsHydratePayload<unknown>> = {};
 
 	for (const [entityId, entityData] of world) {

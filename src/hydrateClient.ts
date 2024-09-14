@@ -11,28 +11,19 @@ import { componentNameCtorMap } from "./componentNameCtorMap";
  *
  * @client
  */
-export function hydrateClient(
-	world: World,
-	payload: WorldPayload<ComponentsHydratePayload<unknown>>,
-): void {
+export function hydrateClient(world: World, payload: WorldPayload<ComponentsHydratePayload<unknown>>): void {
 	let entityIdMap = clientWorldsMap.get(world);
 	if (!entityIdMap) {
 		entityIdMap = new Map();
 		clientWorldsMap.set(world, entityIdMap);
 	}
 
-	for (const [serverEntityId, components] of payload as unknown as Map<
-		string,
-		ComponentsHydratePayload<unknown>
-	>) {
+	for (const [serverEntityId, components] of payload as unknown as Map<string, ComponentsHydratePayload<unknown>>) {
 		let clientEntityId = entityIdMap.get(serverEntityId);
 
 		const componentsToInsert = new Array<AnyComponent>();
 
-		for (const [componentName, data] of components as unknown as Map<
-			string,
-			unknown
-		>) {
+		for (const [componentName, data] of components as unknown as Map<string, unknown>) {
 			const component = componentNameCtorMap.get(componentName);
 			if (component) {
 				componentsToInsert.push(component(data));
